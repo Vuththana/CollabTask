@@ -1,4 +1,4 @@
-import Navbar from '@/Pages/Components/Navbar/Navbar'
+import Navbar from '@/Components/Navbar/Navbar'
 
 export default function Index() {
   return (
