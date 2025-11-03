@@ -9,7 +9,7 @@ const Title = () => {
             <h1
                 className="text-3xl font-bold mb-3"
             >
-                Welcome to Task Flow
+                Welcome to CollabTask
             </h1>
             <p
                 className="text-gray-500"

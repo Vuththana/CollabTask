@@ -12,6 +12,9 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                'button-purple': 'hsl(250 95% 62% / 1)',
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

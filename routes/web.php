@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', action: function () {
-    return Inertia::render('Dashboard/Admin/Index');
+    return Inertia::render('Dashboard/Admin/Index'); // Dashboard
 });
 
-Route::get('/login', action: function () {
-    return Inertia::render('Auth/Login');
+Route::get('/login', function() {
+    return Inertia::render('Auth/Auth');
 });
 
 // Route::get('/dashboard', function () {
