@@ -1,5 +1,5 @@
 import LoginForm from "@/Components/Auth/AuthForm";
-import Title from "@/Components/Auth/Title";
+import Title from "@/Components/Auth/ui/Title";
 
 export default function Auth() {
   return (
