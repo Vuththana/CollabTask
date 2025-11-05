@@ -14,6 +14,7 @@ export default {
         extend: {
             colors: {
                 'button-purple': 'hsl(250 95% 62% / 1)',
+                'gradient-primary': 'linear-gradient(135deg, hsl(250 95% 62%), hsl(270 80% 65%))'
             },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],

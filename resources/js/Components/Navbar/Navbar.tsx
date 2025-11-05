@@ -1,6 +1,6 @@
-import LogoNav from "./LogoNav";
-import NavItems from "./NavItems";
-import SearchNav from "./SearchNav";
+import LogoNav from "./ui/LogoNav";
+import NavItems from "./ui/NavItems";
+import SearchNav from "./ui/SearchNav";
 
 const Navbar = () => {
     return (
