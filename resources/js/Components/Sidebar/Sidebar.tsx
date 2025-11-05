@@ -20,29 +20,31 @@ const Sidebar = () => {
       }, [location]);
 
     return (
-    <aside className ="fixed top-0 left-0 z-40 w-72 h-screen">
-        <div className="h-full px-5 py-24 overflow-y-auto bg-gray-40 border bg-white">
-            <ul className="space-y-2 font-medium">
-                {sidebarLinks.map((sidebarLink => (
-                  <li
-                    key={sidebarLink.href}
-                  >
-                    <a href={`${sidebarLink.href}`}                     
-                    className={`flex items-center gap-4 px-3 py-3 rounded-xl 
-                     text-gray-500 transition-colors 
-                     ${activePath === sidebarLink.href ? 
-                    "bg-gradient-to-tr from-purple-500 to bg-purple-800/70 text-white" 
-                     :
-                    "hover:bg-purple-500/90 hover:text-white"}`}>
-                        {sidebarLink.icon}
-                        {sidebarLink.value}
-                    </a>
-                  </li>  
-                )))}
-            </ul>
-            
-        </div>
-    </aside>
+
+        <aside className ="hidden md:flex w-64 flex-col">
+            <nav className="h-full px-5 py-6 overflow-y-auto bg-gray-40 border bg-white">
+                <ul className="space-y-2 font-medium">
+                    {sidebarLinks.map((sidebarLink => (
+                    <li
+                        key={sidebarLink.href}
+                    >
+                        <a href={`${sidebarLink.href}`}                     
+                        className={`flex items-center gap-4 px-3 py-3 rounded-xl 
+                        text-gray-500 transition-colors 
+                        ${activePath === sidebarLink.href ? 
+                        "bg-gradient-to-tr from-purple-500 to bg-purple-800/70 text-white" 
+                        :
+                        "hover:bg-purple-500/90 hover:text-white"}`}>
+                            {sidebarLink.icon}
+                            {sidebarLink.value}
+                        </a>
+                    </li>  
+                    )))}
+                </ul>
+                
+            </nav>
+        </aside>
+
     )
 
 }

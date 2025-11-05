@@ -15,7 +15,7 @@ const LogoNav = () => {
             </div>
 
             <span
-                className="text-[23px] font-[1000] tracking-tight"
+                className="text-[23px] font-bold tracking-tight"
             >
                 CollabTask
             </span>
