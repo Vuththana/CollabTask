@@ -12,7 +12,7 @@ const StatsCard = () => {
   return (
     <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
         {contextProviders.map((context => (
-            <div className="border rounded-lg">
+            <div className="border rounded-lg shadow-sm hover:shadow-md transition-all bg-white">
         <div className="p-6">
           <div className="flex justify-between items-center">
             <div className="space-y-1">

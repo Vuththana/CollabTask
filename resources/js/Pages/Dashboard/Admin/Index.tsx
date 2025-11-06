@@ -1,6 +1,7 @@
 import Sidebar from '@/Components/Sidebar/Sidebar'
 import Navbar from "@/Components/Navbar/Navbar";
 import StatsCard from '@/Components/Dashboard/StatsCard';
+import ActiveProjects from '@/Components/Dashboard/ActiveProjects';
 
 export default function Index() {
   return (
@@ -30,6 +31,9 @@ export default function Index() {
               
               {/* Stats Card */}
               <StatsCard />
+
+              {/* Active Projects */}
+              <ActiveProjects />
             </div>  
         </main>
     </div>
