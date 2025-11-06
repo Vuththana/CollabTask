@@ -16,12 +16,12 @@ const StatsCard = () => {
         <div className="p-6">
           <div className="flex justify-between items-center">
             <div className="space-y-1">
-                {/* Title Project */}
+                {/* Title */}
                 <h2 className="text-md text-gray-500 font-semibold">
                 {context.title}
                 </h2>
 
-                {/* Total Projects Counter */}
+                {/* Counter */}
                 <p className="text-[30px] font-bold">
                     {context.count}
                 </p>
