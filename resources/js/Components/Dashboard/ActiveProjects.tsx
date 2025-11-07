@@ -1,4 +1,4 @@
-import { FaCalendar, FaCalendarCheck } from "react-icons/fa";
+import { FaCalendar } from "react-icons/fa";
 import { FaCircleCheck } from "react-icons/fa6";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 
