@@ -33,7 +33,6 @@ const TeamSidebar = ({teams, projects, onSelectTeam, onSelectProject}: TeamProps
     const [teamId, setActiveTeamId] = useState<number | null> (null);
     const [projectId, setActiveProjectId] = useState<number | null> (null);
 
-
     return (
         <div className ="hidden md:flex w-[420px] flex-col">
             <div className="h-full px-5 py-6 overflow-y-auto border bg-white space-y-2">
@@ -88,9 +87,9 @@ const TeamSidebar = ({teams, projects, onSelectTeam, onSelectProject}: TeamProps
                                         >
                                             🏷️ {project.name}
                                         </p>
-                                        { (projectId === project.id) && (
+                                        {(projectId === project.id) && (
                                             <DropdownProject />
-                                            )}
+                                        )}
 
                                     </div>
                             </div>

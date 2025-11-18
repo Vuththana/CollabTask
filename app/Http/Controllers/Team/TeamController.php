@@ -26,8 +26,6 @@ class TeamController extends Controller
         $projects = $auth->projects()
             ->get(['projects.id', 'projects.name', 'projects.team_id']);
 
-        // $members = $auth->
-
         // $acceptedInvitations = ProjectInvitation::with(['sender', 'recipient'])
         //     ->whereIn('project_id', $projectId)
         //     ->where('status', 'accepted')

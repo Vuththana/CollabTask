@@ -17,7 +17,7 @@ Route::middleware(['auth'])->group(function () {
 
         // generate invite link
         Route::post('/{team}/invite-link', [InviteLinkController::class, 'create'])
-            ->name('teams.invite-link.create')->middleware(['auth', 'throttle:3,10']);;
+            ->name('teams.invite-link.create');
     });
 
     

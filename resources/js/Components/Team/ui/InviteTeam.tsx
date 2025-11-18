@@ -38,12 +38,13 @@ const InviteTeam = () => {
       };
 
     return (
+        <div>
         <Dialog open={open} onOpenChange={setOpen}>
         <form onSubmit={handleSubmit} id="invite-member-form">
         <DialogTrigger asChild>
             <button 
-                className='border px-2 py-1 hover:bg-gray-200/80'>
-                <LucideUserPlus2 />
+                className='border rounded-l-lg px-2 py-1 hover:bg-gray-200/80'>
+                <LucideUserPlus2 className='w-5 h-5'/>
             </button>
         </DialogTrigger>
 
@@ -130,6 +131,8 @@ const InviteTeam = () => {
 
         </form>
     </Dialog>
+        </div>
+
     )
 } 
 

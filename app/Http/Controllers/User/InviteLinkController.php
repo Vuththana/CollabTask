@@ -11,13 +11,20 @@ use Illuminate\Support\Str;
 class InviteLinkController extends Controller
 {
     public function create(Team $team) {
-        $invite = InviteLink::create([
-            'team_id' => $team->id,
-            'created_by' => Auth::id(),
-            'token' => Str::uuid(),
-            'role' => 'team-member',
-            'expires_at' => now()->addDays(7)
-        ]);
+        $invite = InviteLink::where( 'created_by', Auth::id())
+        ->where('status', 'active')
+        ->latest()
+        ->first();
+
+        if(!$invite) {
+            $invite = InviteLink::create([
+                'team_id' => $team->id,
+                'created_by' => Auth::id(),
+                'token' => Str::uuid(),
+                'role' => 'team-member',
+                'expires_at' => now()->addDays(7)
+            ]);
+        }
 
         $url = url("/invite/{$invite->token}");
 

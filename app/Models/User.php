@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Models\Project\Project;
 use App\Models\Project\ProjectInvitation;
+use App\Models\User\InviteLink;
 use App\Models\User\Team;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

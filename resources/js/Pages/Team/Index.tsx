@@ -46,17 +46,19 @@ interface ProjectUsers {
 export default function Index({projects, invited_by, teams}: ProjectUsers) {
   const [selectedTeamId, setSelectedTeamId] = useState<number|null>(null);
   const [selectedProjectId, setSelectedProjectId] = useState<number|null>(null);
-
-  const handleSelectProject = (projectId: number | null) => {
-    setSelectedProjectId(projectId);
-    setSelectedTeamId(null);
-  };
+  const [clickCounter, setClickCounter] = useState(0);
 
   const handleSelectTeam = (teamId: number | null) => {
     setSelectedTeamId(teamId);
     setSelectedProjectId(null);
+    setClickCounter(prev => prev + 1);
   };
   
+  const handleSelectProject = (projectId: number | null) => {
+    setSelectedProjectId(projectId);
+    setSelectedTeamId(null);
+    setClickCounter(prev => prev + 1);    
+  };
 
 
   return (
@@ -76,7 +78,7 @@ export default function Index({projects, invited_by, teams}: ProjectUsers) {
               
               <div className="flex-1">
                 {selectedTeamId ? (
-                  <TeamView teams={teams} selectedTeamId={selectedTeamId}/>
+                  <TeamView teams={teams} selectedTeamId={selectedTeamId} refreshKey={clickCounter}/>
                 ) : selectedProjectId ? (
                   <div>Project</div>
                 ) : (
