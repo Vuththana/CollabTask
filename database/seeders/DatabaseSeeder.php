@@ -22,13 +22,12 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
         ]);
 
-        $superAdmin = Role::create(['name' => 'Super Admin']);
-        User::factory()->create()->each(function($user) use ($superAdmin) {
-            $user->assignRole($superAdmin);
+        User::factory(1)->create()->each(function($user)  {
+            $user->assignRole('super-admin');
         });
 
-        User::factory()->create()->each(function($user) {
-            $user->assignRole('Admin');
+        User::factory(1)->create()->each(function($user) {
+            $user->assignRole('global-user');
         });
     }
 }

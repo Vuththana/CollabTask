@@ -1,6 +1,18 @@
+import { useForm } from "@inertiajs/react";
+
 const Login = () => {
+  const {data, setData, post, processing, errors} = useForm({
+    email: '',
+    password: '',
+    remember: false,
+});
+  
+  const handleSubmit = ( e?:any ) => {
+    e.preventDefault();
+    post(route('login'))
+  }
     return (
-      <form>
+      <form onSubmit={handleSubmit}>
         {/* Email */}
         <p>
           <label className="block font-[500] mb-2" htmlFor="email">
@@ -14,7 +26,10 @@ const Login = () => {
             placeholder="name@example.com"
             name="email"
             id="email"
+            value={data.email}
+            onChange={(e) => setData('email', e.target.value)}
           />
+          {errors.email && <div className="text-sm text-red-600 mt-1">{errors.email}</div>}
         </p>
   
         {/* Password */}
@@ -30,19 +45,22 @@ const Login = () => {
             placeholder="********"
             name="password"
             id="password"
+            value={data.password}
+            onChange={(e) => setData('password', e.target.value)}
           />
+          {errors.password && <div className="text-sm text-red-600 mt-1">{errors.password}</div>}
         </p>
   
         {/* Login */}
         <p className="mt-3">
-          <button className="w-full border rounded-lg py-2 bg-button-purple text-white hover:bg-button-purple/90">
+          <button type="submit" disabled={processing} className="w-full border font-medium rounded-lg py-2 bg-button-purple text-white hover:bg-button-purple/90">
             Sign In
           </button>
         </p>
   
         {/* Forget Password */}
         <p className="mt-3">
-          <button className="w-full border rounded-lg py-2 bg-[#f5f7f9] text-black">
+          <button className="w-full border font-medium rounded-lg py-2 bg-[#f5f7f9] text-black">
             Forgot Password?
           </button>
         </p>

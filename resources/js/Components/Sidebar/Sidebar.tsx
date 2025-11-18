@@ -1,17 +1,21 @@
+import { LucideCalendar, LucideMessageSquare, LucideUsers2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { FaFolder, FaTasks, FaUsers } from "react-icons/fa";
+import {  FaUsers } from "react-icons/fa";
 import { FaDesktop, FaGear } from "react-icons/fa6";
 
+
+
 const sidebarLinks = [
-    {value: "Dashboard", href: "/", icon: <FaDesktop />}, // DASHBOARD
-    {value: "Projects", href: "/projects", icon: <FaFolder />}, // PROJECTS
-    {value: "Tasks", href: "/tasks", icon: <FaTasks />}, // TASKS
-    {value: "Team", href: "/team", icon: <FaUsers />}, // TEAM
-    {value: "Setting", href: "/setting", icon: <FaGear />}, // TEAM
+    { title: "Team", href: "/", icon: <LucideUsers2 /> },
+    { title: "Chat", href: "/chat", icon: <LucideMessageSquare /> },
+    // { title: "Setting", href: "/setting", icon: <FaGear /> },
+    { title: "Calendar", href: "/calendar", icon: <LucideCalendar /> },
+
 ]
 
 
 const Sidebar = () => {
+
     const location = window.location.pathname;
     const [activePath, setActivePath] = useState(location);
 
@@ -21,22 +25,22 @@ const Sidebar = () => {
 
     return (
 
-        <aside className ="hidden md:flex w-64 flex-col">
+        <aside className ="hidden md:flex w-20 flex-col">
             <nav className="h-full px-5 py-6 overflow-y-auto bg-gray-40 border bg-white">
-                <ul className="space-y-2 font-medium">
-                    {sidebarLinks.map((sidebarLink => (
+                <ul className="space-y-1 font-medium">
+                    {sidebarLinks.map((link => (
                     <li
-                        key={sidebarLink.href}
+                        key={link.href}
                     >
-                        <a href={`${sidebarLink.href}`}                     
-                        className={`flex items-center gap-4 px-3 py-3 rounded-xl 
+                        <a href={`${link.href}`}                     
+                        className={`flex flex-col items-center px-3 py-3 
                         text-gray-500 transition-colors 
-                        ${activePath === sidebarLink.href ? 
-                        "bg-gradient-to-tr from-purple-500 to bg-purple-800/70 text-white" 
+                        ${activePath === link.href ? 
+                        "text-purple-500" 
                         :
-                        "hover:bg-purple-500/90 hover:text-white"}`}>
-                            {sidebarLink.icon}
-                            {sidebarLink.value}
+                        " hover:text-purple-500/90"}`}>
+                            {link.icon}
+                            {link.title}
                         </a>
                     </li>  
                     )))}

@@ -1,6 +1,20 @@
+import { useForm } from "@inertiajs/react";
+
 const Register = () => {
+  const {data, setData, post, processing, errors} = useForm({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation : '',
+  })
+
+  const handleRegister = (e?:any) => {
+    e.preventDefault()
+    post(route('register'))
+  }
+
     return (
-      <form>
+      <form onSubmit={handleRegister}>
         {/* Name */}
         <p>
           <label className="block font-[500] mb-2" htmlFor="name">
@@ -14,7 +28,10 @@ const Register = () => {
             placeholder="John Doe"
             name="name"
             id="name"
+            value={data.name}
+            onChange={(e) => setData('name', e.target.value)}
           />
+          {errors.name && <div className="text-sm text-red-600 mt-1">{errors.name}</div>}
         </p>
 
         {/* Email */}
@@ -30,7 +47,10 @@ const Register = () => {
             placeholder="name@example.com"
             name="email"
             id="email"
+            value={data.email}
+            onChange={(e) => setData('email', e.target.value)}
           />
+          {errors.email && <div className="text-sm text-red-600 mt-1">{errors.email}</div>}
         </p>
   
         {/* Password */}
@@ -46,7 +66,10 @@ const Register = () => {
             placeholder="********"
             name="password"
             id="password"
+            value={data.password}
+            onChange={(e) => setData('password', e.target.value)}
           />
+          {errors.password && <div className="text-sm text-red-600 mt-1">{errors.password}</div>}
         </p>
 
         {/* Confirm Password */}
@@ -60,14 +83,17 @@ const Register = () => {
                          placeholder:text-gray-400 bg-background disabled:opacity-50 md:text-sm "
             type="password"
             placeholder="********"
-            name="confirmPassword"
-            id="confirmPassword"
+            name="password_confirmation "
+            id="password_confirmation "
+            value={data.password_confirmation }
+            onChange={(e) => setData('password_confirmation', e.target.value)}
           />
+          {errors.password_confirmation  && <div className="text-sm text-red-600 mt-1">{errors.password_confirmation }</div>}
         </p>
   
         {/* Register */}
         <p className="mt-3">
-          <button className="w-full border rounded-lg py-2 bg-button-purple text-white hover:bg-button-purple/90">
+          <button type="submit" disabled={processing} className="w-full border font-medium rounded-lg py-2 bg-button-purple text-white hover:bg-button-purple/90">
             Sign Up
           </button>
         </p>

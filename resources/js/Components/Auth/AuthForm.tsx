@@ -1,24 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
 
 const AuthForm = () => {
   const [isAuth, setAuth] = useState(true);
 
+  const location = window.location.pathname;
+
+  useEffect(() => {
+    if(location == "/login") {
+      setAuth(true)
+    }
+    if(location == "/register") {
+      setAuth(false)
+    }
+  }, []) // Runs only once when mounted
+
   return (
-    <div className="border px-5 py-4 rounded-md">
-      <div className="">
-        <h2 className="text-2xl font-bold">Get Started</h2>
+    <div className="border px-5 py-4 rounded-xl bg-white">
+      <div className="mb-4 mt-4">
+        <h2 className="text-2xl font-medium">Get Started</h2>
         <p className="text-sm text-gray-400">
           Sign in to your account to continue
         </p>
       </div>
 
       {/* Login & Register Button */}
-      <div className="flex justify-between border py-1 rounded-lg px-1 bg-[#f5f7f9] font-bold transition-all duration-300 relative overflow-hidden">
+      <div className="flex justify-between border py-1 rounded-lg text-sm px-1 bg-[#f5f7f9] font-medium transition-all duration-300 relative overflow-hidden">
         <button
           className={`relative z-10 w-full py-1 rounded-lg transition-all duration-300 ${
-            isAuth ? "text-gray-900" : "text-gray-500"
+            isAuth ? "text-gray-900" : "text-gray-900"
           }`}
           onClick={() => setAuth(true)}
         >
@@ -27,7 +38,7 @@ const AuthForm = () => {
 
         <button
           className={`relative z-10 w-full py-1 rounded-lg transition-all duration-300 ${
-            !isAuth ? "text-gray-900" : "text-gray-500"
+            isAuth ? "text-gray-900" : "text-gray-900"
           }`}
           onClick={() => setAuth(false)}
         >
