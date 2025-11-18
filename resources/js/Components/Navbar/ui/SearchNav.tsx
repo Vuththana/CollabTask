@@ -1,4 +1,4 @@
-import Input from "@/Components/ui/input";
+    import Input from "@/Components/ui/input";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
@@ -10,10 +10,10 @@ const SearchNav = () => {
         >
             {/* Input  */}
             <div
-                className="relative w-full max-w-md"
+                className="relative flex-1 w-full max-w-md"
             >
                 <FaSearch 
-                    className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" 
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" 
                 />
                 <Input
                 className='pl-10'

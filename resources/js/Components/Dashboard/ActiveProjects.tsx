@@ -35,9 +35,9 @@ const ActiveProjects = () => {
                             </div>
                         </div>
 
-                        <div className="border-t p-6">
+                        <div className="border-t py-6">
                             {/* Date Posted */}
-                            <div className="flex items-start justify-between text-gray-400 text-sm">
+                            <div className="flex items-start justify-between text-gray-500 text-sm">
                                 <div className="flex justify-between gap-3">
                                     {/* Date Posted */}
                                     <div className="flex items-center gap-1">

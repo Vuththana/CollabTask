@@ -1,17 +1,32 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\Project\ProjectController;
+use App\Http\Controllers\Team\TeamController;
+use App\Http\Controllers\User\InviteLinkController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', action: function () {
-    return Inertia::render('Dashboard/Admin/Index'); // Dashboard
+
+Route::middleware(['auth'])->group(function () {
+    // SPA home (Teams dashboard)
+    Route::get('/', [TeamController::class, 'index'])->name('teams.index');
+
+    // Team routes (backend API)
+    Route::prefix('teams')->group(function () {
+        // create new team
+        Route::post('/', [TeamController::class, 'store'])->name('teams.store');
+
+        // generate invite link
+        Route::post('/{team}/invite-link', [InviteLinkController::class, 'create'])
+            ->name('teams.invite-link.create')->middleware(['auth', 'throttle:3,10']);;
+    });
+
+    
+
+    Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+    Route::post('/projects/{id}', [ProjectController::class, 'store'])->name('project.store');
 });
 
-Route::get('/login', function() {
-    return Inertia::render('Auth/Auth');
-});
+Route::get('/invite/{token}', [InviteLinkController::class, 'accept'])->name('teams.invite-link.accept');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
@@ -23,4 +38,4 @@ Route::get('/login', function() {
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-// require __DIR__.'/auth.php';
+require __DIR__.'/auth.php';

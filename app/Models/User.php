@@ -4,20 +4,20 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use Filament\Facades\Filament;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
+use App\Models\Project\Project;
+use App\Models\Project\ProjectInvitation;
+use App\Models\User\Team;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, HasPermissions;
 
     /**
      * The attributes that are mass assignable.
@@ -51,5 +51,35 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'team_users')
+            ->withPivot('role')
+            ->withTimestamps();
+    }
+
+    public function ownedTeam() {
+        return $this->hasMany(Team::class, 'owner_id');
+    }
+    
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class, 'project_users');
+    }
+
+    public function projectUsers()
+    {
+        return $this->hasMany(ProjectUser::class, 'project_users');
+    }
+
+    public function invitationsSent()
+    {
+        return $this->hasMany(ProjectInvitation::class);
+    }
+    
+    public function invitationsReceived()
+    {
+        return $this->hasMany(ProjectInvitation::class);
     }
 }
