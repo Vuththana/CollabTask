@@ -28,7 +28,7 @@ class InviteLinkController extends Controller
 
         $url = url("/invite/{$invite->token}");
 
-        return response()->json(['invite_link' => $url]);
+            return response()->json(['invite_link' => $url]);
     }
 
     public function accept($token) {
