@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import InviteTeam from "./InviteTeam";
 import GenerateTeamLink from "./GenerateTeamLink";
-import TeamSettings from "./TeamSettings";
 import { LucideSettings } from "lucide-react";
+import Overview from "../Overview/Overview";
+import { isEmpty } from "lodash";
 
 interface Team {
     id: number;
@@ -11,8 +12,7 @@ interface Team {
 }
 
 interface TeamViewProps {
-    teams: Team[]
-    selectedTeamId: number
+    teams: Team | null
     refreshKey: number
 }
 
@@ -30,17 +30,14 @@ const settingsTabs = [
 
 ]
 
-const TeamView = ({teams, selectedTeamId, refreshKey}: TeamViewProps) => {
+const TeamView = ({teams, refreshKey}: TeamViewProps) => {
     const [mode, setMode] = useState<"main" | "settings"> ("main");
-
     const [activeTab, setActiveTab] = useState("overview");
 
-    const team = teams.find(team => team.id === selectedTeamId);
-    if (!team) return <p>Team not found</p>
-
+    if (isEmpty(teams)) return <p>Team not found</p>
     
     const tabComponents: Record<string, React.ReactNode> = {
-        overview: <div>Overview</div>,
+        overview: <Overview teams={teams} />,
         discussions: <div>Discussion</div>,
         files: <div>Files</div>,
 
@@ -54,11 +51,12 @@ const TeamView = ({teams, selectedTeamId, refreshKey}: TeamViewProps) => {
         setMode("main");
         setActiveTab("overview");
     }, [refreshKey])
+
     return (
         <div className="w-full">
             <div className="container mx-auto flex h-16 gap-4 px-4 border-b">
                 <div className="flex flex-1 gap-4 items-center w-full">
-                    <p className="text-xl font-medium">🏷️ {team.name}</p>
+                    <p className="text-xl font-medium">🏷️ {teams.name}</p>
                         <div className="space-x-3">
                             { (mode === "main" ? mainTabs : settingsTabs).map((tab) => (
                                 <button onClick={() => setActiveTab(tab.key as any)} 
@@ -73,7 +71,7 @@ const TeamView = ({teams, selectedTeamId, refreshKey}: TeamViewProps) => {
                 {/* Buttons */}
                 <div className="flex items-center">
                         <InviteTeam />
-                        <GenerateTeamLink id={selectedTeamId} name={team.name} />
+                        <GenerateTeamLink id={teams.id} name={teams.name} />
                         <div>
                             <button onClick={() => {
                                 setMode("settings"); 
@@ -84,8 +82,8 @@ const TeamView = ({teams, selectedTeamId, refreshKey}: TeamViewProps) => {
                             </button>
                         </div>
                 </div>
+                
             </div>
-
             <div>
                 {tabComponents[activeTab] ?? "Page Not found"}
             </div>
