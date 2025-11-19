@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OverviewController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Team\TeamController;
 use App\Http\Controllers\User\InviteLinkController;
@@ -10,20 +11,30 @@ Route::middleware(['auth'])->group(function () {
     // SPA home (Teams dashboard)
     Route::get('/', [TeamController::class, 'index'])->name('teams.index');
 
-    // Team routes (backend API)
+    /*
+    |--------------------------------------------------------------------------
+    | Team API
+    |--------------------------------------------------------------------------
+    */
     Route::prefix('teams')->group(function () {
-        // create new team
+        // Create new team
         Route::post('/', [TeamController::class, 'store'])->name('teams.store');
 
-        // generate invite link
+        // Generate invite link
         Route::post('/{team}/invite-link', [InviteLinkController::class, 'create'])
             ->name('teams.invite-link.create');
+
+        // Overview
+        Route::get("/{team}/overview", [TeamController::class, 'overview'])->name('teams.overview');
+        
+        // Projects (Overview)
+        Route::get('/projects', [OverviewController::class, 'index'])->name('projects.index');
+        Route::post('/projects/{id}', [ProjectController::class, 'store'])->name('project.store');
     });
 
     
 
-    Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
-    Route::post('/projects/{id}', [ProjectController::class, 'store'])->name('project.store');
+ 
 });
 
 Route::get('/invite/{token}', [InviteLinkController::class, 'accept'])->name('teams.invite-link.accept');

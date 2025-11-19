@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/Components/ui/dialog';
-import Input from '../ui/input';
+import Input from '../../../../Components/ui/input';
 import { useState } from 'react';
-import { Button } from '../ui/button';
+import { Button } from '../../../../Components/ui/button';
 import { useForm } from '@inertiajs/react';
 import { LucidePlus } from 'lucide-react';
 
