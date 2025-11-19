@@ -1,9 +1,8 @@
-import TeamCard from "@/Components/Team/TeamCard";
-import NoTeam from "../NoTeam";
+import NoTeam from "./Components/NoTeam";
 import MainLayout from "@/Layouts/MainLayout";
-import TeamSidebar from "@/Components/Team/TeamSidebar";
 import { useMemo, useState } from "react";
-import TeamView from "@/Components/Team/ui/TeamView";
+import TeamSidebar from "./Components/TeamSidebar";
+import TeamView from "./Components/TeamView";
 
 interface Team {
   id: number;

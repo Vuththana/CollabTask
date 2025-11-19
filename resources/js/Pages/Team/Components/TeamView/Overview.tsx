@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import ProjectsCard from "./ProjectsCard";
+import { useEffect, useMemo, useState } from "react";
+import ProjectsCard from "./Overview/ProjectsCard";
 
 interface Team {
     id: number;
@@ -20,6 +20,10 @@ const Overview = ({teams}: OverviewProps) => {
     const [projects, setProjectsData] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<unknown>(null);
+
+    const memoProjects = useMemo(() => {
+        return projects.filter(p => p.id === teams.id)
+    }, [projects, teams.id])
 
     useEffect(() => {
         const fetchProject = async() => {
@@ -51,7 +55,7 @@ const Overview = ({teams}: OverviewProps) => {
                 </div>
 
                 <div>
-                    <ProjectsCard projects={projects.filter(p => p.id === teams.id)}/>
+                    <ProjectsCard projects={memoProjects}/>
                 </div>
                 
                 {/* 

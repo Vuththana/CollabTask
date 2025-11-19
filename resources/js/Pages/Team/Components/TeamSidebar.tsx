@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../../Components/ui/button";
 import {LucideFilter, LucideUsers2 } from "lucide-react";
-import CreateProject from "./CreateProject";
-import CreateTeam from "./CreateTeam";
-import DropdownProject from "./ui/DropdownProject";
-import DropdownTeam from "./ui/DropdownTeam";
-import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Avatar, AvatarFallback } from "../../../Components/ui/avatar";
+
+import DropdownTeam from "./TeamSidebar/DropdownTeam";
+import DropdownProject from "./TeamSidebar/DropdownProject";
+import CreateProject from "./TeamSidebar/CreateProject";
+import CreateTeam from "./TeamSidebar/CreateTeam";
 
 interface Team {
     id: number;

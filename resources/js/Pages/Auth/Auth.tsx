@@ -1,5 +1,5 @@
-import LoginForm from "@/Components/Auth/AuthForm";
-import Title from "@/Components/Auth/ui/Title";
+import AuthForm from "./Components/AuthForm";
+import Title from "./Components/Title";
 
 export default function Auth() {
   return (
@@ -10,7 +10,7 @@ export default function Auth() {
         className="w-full max-w-md"
       >
         <Title />
-        <LoginForm />
+        <AuthForm />
 
         <div className="text-center mt-1">
           <span className="text-sm text-gray-400">By continuing, you agree to our Terms of Service and Privacy Policy</span>

@@ -1,10 +1,10 @@
+import { Button } from "@/Components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/Components/ui/dialog";
+import Input from "@/Components/ui/input";
+import { Label } from "@/Components/ui/label";
 import { useForm } from "@inertiajs/react";
-import { useState } from "react";
-import { Button } from "../ui/button";
 import { LucidePlus } from "lucide-react";
-import { Label } from "../ui/label";
-import Input from "../ui/input";
+import { useState } from "react";
 
 const CreateTeam = () => {
     const [createTeamOpen, setCreateTeamOpen] = useState(false);

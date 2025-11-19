@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import InviteTeam from "./InviteTeam";
-import GenerateTeamLink from "./GenerateTeamLink";
 import { LucideSettings } from "lucide-react";
-import Overview from "../Overview/Overview";
 import { isEmpty } from "lodash";
+import Overview from "./TeamView/Overview";
+import InviteTeam from "./TeamView/InviteTeam";
+import GenerateTeamLink from "./TeamView/GenerateTeamLink";
 
 interface Team {
     id: number;
