@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "../../../Components/ui/button";
 import {LucideFilter, LucideUsers2 } from "lucide-react";
 import { Avatar, AvatarFallback } from "../../../Components/ui/avatar";
@@ -22,18 +22,24 @@ interface Project {
 }
 
 interface TeamProps {
-    teams: Team[]
-    projects: Project[]
-    onSelectTeam: (id: number) => void
+    teams: Team[];
+    projects: Project[];
+    onSelectTeam: (id: number) => void;
     onSelectProject: (id: number) => void
-
+    selectedProjectId: number | null;
+    setRefreshKey: Dispatch<SetStateAction<number>>;
 }
 
-const TeamSidebar = ({teams, projects, onSelectTeam, onSelectProject}: TeamProps) => {
+const TeamSidebar = ({teams, projects, onSelectTeam, onSelectProject, selectedProjectId, setRefreshKey, ...props}: TeamProps) => {
     
     const [teamId, setActiveTeamId] = useState<number | null> (null);
     const [projectId, setActiveProjectId] = useState<number | null> (null);
 
+    useEffect(() => {
+        setActiveProjectId(selectedProjectId);
+        if (selectedProjectId) setActiveTeamId(null);
+      }, [selectedProjectId]);
+      
     return (
         <div className ="hidden md:flex w-[420px] flex-col">
             <div className="h-full px-5 py-6 overflow-y-auto border bg-white space-y-2">
@@ -53,7 +59,7 @@ const TeamSidebar = ({teams, projects, onSelectTeam, onSelectProject}: TeamProps
                 <div className="space-y-3" key={team.id} >
                     <div className="border-b pb-4" >
                         <div 
-                        onClick={() => {setActiveTeamId(team.id); setActiveProjectId(null); onSelectTeam(team.id)}}
+                        onClick={() => {setActiveTeamId(team.id); setActiveProjectId(null); onSelectTeam(team.id);}}
                         >
                             <div className={`flex justify-between items-center gap-4 rounded-lg mb-2
                             hover:bg-gray-300 hover:cursor-pointer ${teamId === team.id ? " bg-gray-200" : "" }`} >
@@ -78,7 +84,7 @@ const TeamSidebar = ({teams, projects, onSelectTeam, onSelectProject}: TeamProps
                                 .filter(project => team.id === project.team_id)
                                 .map((project) => (
                             <div   key={project.id}
-                            onClick={() => {setActiveProjectId(project.id); setActiveTeamId(null); onSelectProject(project.id)}}
+                            onClick={() => {setActiveProjectId(project.id); setActiveTeamId(null); onSelectProject(project.id);}}
                             >
 
                                     <div 
@@ -97,7 +103,12 @@ const TeamSidebar = ({teams, projects, onSelectTeam, onSelectProject}: TeamProps
                             ))}
 
                             <div className="mt-1">
-                                <CreateProject name={team.name} id={team.id}/>
+                                <CreateProject 
+                                name={team.name}
+                                id={team.id}
+                                setProjectId={onSelectProject}
+                                setRefreshKey={setRefreshKey}
+                                {...props}/>
                             </div>
 
                         </div>

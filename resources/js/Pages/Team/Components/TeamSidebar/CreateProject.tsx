@@ -1,30 +1,46 @@
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/Components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/Components/ui/dialog';
 import Input from '../../../../Components/ui/input';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Button } from '../../../../Components/ui/button';
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import { LucidePlus } from 'lucide-react';
 
-interface TeamProp {
+interface Project {
+    id: number;
+    team_id: number;
+    name: string;
+    description?: string
+  }
+  
+interface TeamProps {
     id: number;
     name: string;
+    setRefreshKey: Dispatch<SetStateAction<number>>;
+    setProjectId: Dispatch<SetStateAction<number | null>>;
 }
 
-const CreateProject = ({name, id}: TeamProp) => {
+const CreateProject = ({name, id, setRefreshKey, setProjectId, ...props}: TeamProps) => {
     const [open, setOpen] = useState(false)
-    // const [date, setDate] = useState<Date | undefined>(undefined)
-
-    const {data, setData, post, processing, errors} = useForm({
-        id: id,
+    const {data, setData, post, processing, } = useForm({
         name: '',
         description: '',
     })
 
-    const handleSubmit = (e?:any) => {
+    const handleSubmit = (e:React.FormEvent) => {
         e.preventDefault();
-        post(route('project.store', id))
+        post(route("projects.store", id), {
+            onSuccess: (page) => {
+              const createdProject = page.props.flash?.created_project;
+              if (createdProject) {
+                setProjectId(createdProject.id);
+                setRefreshKey((prev) => prev + 1);
+                setData({ name: "", description: "" });
+                setOpen(false);
+              }
+            },
+        })
     }
-
+    
     return (
         <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
@@ -39,11 +55,10 @@ const CreateProject = ({name, id}: TeamProp) => {
             <DialogTitle>
                 Create a new project in "{name}"
             </DialogTitle>
-
-            <DialogHeader>
+            <DialogDescription>
                 Start a new project and invite team members to collaborate.
-            </DialogHeader>
-            <div>
+            </DialogDescription>
+            <div className='pt-2'>
                 <div className='space-y-2'>
                     {/* Project Name */}
                     <Input

@@ -29,8 +29,8 @@ const Login = () => {
             value={data.email}
             onChange={(e) => setData('email', e.target.value)}
           />
-          {errors.email && <div className="text-sm text-red-600 mt-1">{errors.email}</div>}
         </p>
+        {errors.email && <div className="text-sm text-red-600 mt-1">{errors.email}</div>}
   
         {/* Password */}
         <p className="mt-3">
@@ -48,9 +48,8 @@ const Login = () => {
             value={data.password}
             onChange={(e) => setData('password', e.target.value)}
           />
-          {errors.password && <div className="text-sm text-red-600 mt-1">{errors.password}</div>}
         </p>
-  
+        {errors.password && <div className="text-sm text-red-600 mt-1">{errors.password}</div>}
         {/* Login */}
         <p className="mt-3">
           <button type="submit" disabled={processing} className="w-full border font-medium rounded-lg py-2 bg-button-purple text-white hover:bg-button-purple/90">

@@ -11,6 +11,7 @@ interface Team {
 interface Project {
     id: number;
     name: string;
+    team_id: number
 }
 interface OverviewProps {
     teams: Team;
@@ -22,8 +23,9 @@ const Overview = ({teams}: OverviewProps) => {
     const [error, setError] = useState<unknown>(null);
 
     const memoProjects = useMemo(() => {
-        return projects.filter(p => p.id === teams.id)
+        return projects.filter(p => p.team_id === teams.id)
     }, [projects, teams.id])
+
 
     useEffect(() => {
         const fetchProject = async() => {
@@ -38,6 +40,7 @@ const Overview = ({teams}: OverviewProps) => {
         }
         fetchProject();
     }, [])
+
 
     if(loading) {
         return (

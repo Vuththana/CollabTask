@@ -26,13 +26,12 @@ const CreateTeam = () => {
             </Button>
         </DialogTrigger>
 
-        <form onSubmit={handleTeamCreate} id="form-team-create">
+
         <DialogContent>
+        <form onSubmit={handleTeamCreate} id="form-team-create">
             <DialogTitle>Create New Team</DialogTitle>
-            <DialogDescription>
-                Set up your team and start collaborating with others
-            </DialogDescription>
-            <div className="space-y-4 pt-4">
+            <DialogDescription>Set up your team and start collaborating with others</DialogDescription>
+            <div className="space-y-4 pt-1">
                 <div className="space-y-2">
                     <Label htmlFor="team-name">Team Name</Label>
                     <Input 
@@ -52,13 +51,15 @@ const CreateTeam = () => {
                     placeholder="What's this team about?"
                     />
                 </div>
-
-                <p className="text-sm text-gray-500">
+                <div>
                     <p className="text-[11px]">Community guidelines</p>
-                    Be kind and respectful to your fellow community members. 
-                    Don't be rude or cruel. 
-                    Participate as yourself and don't post anything that violates Community Standards.
-                </p>
+                    <p className="text-sm text-gray-500">
+                        Be kind and respectful to your fellow community members. 
+                        Don't be rude or cruel. 
+                        Participate as yourself and don't post anything that violates Community Standards.
+                    </p>
+                </div>
+
                 <Button
                     type="submit"
                     disabled={processing}
@@ -68,8 +69,9 @@ const CreateTeam = () => {
                     Create Team
                 </Button>
             </div>
+            </form>
         </DialogContent>
-        </form>
+
     </Dialog>
     )
 }

@@ -31,9 +31,8 @@ const Register = () => {
             value={data.name}
             onChange={(e) => setData('name', e.target.value)}
           />
-          {errors.name && <div className="text-sm text-red-600 mt-1">{errors.name}</div>}
         </p>
-
+        {errors.name && <div className="text-sm text-red-600 mt-1">{errors.name}</div>}
         {/* Email */}
         <p>
           <label className="block font-[500] mb-2" htmlFor="email">
@@ -50,8 +49,8 @@ const Register = () => {
             value={data.email}
             onChange={(e) => setData('email', e.target.value)}
           />
-          {errors.email && <div className="text-sm text-red-600 mt-1">{errors.email}</div>}
         </p>
+        {errors.email && <div className="text-sm text-red-600 mt-1">{errors.email}</div>}
   
         {/* Password */}
         <p className="mt-3">

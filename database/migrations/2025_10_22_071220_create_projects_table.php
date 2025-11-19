@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->text('description');
-            $table->
+            $table->text('description')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->enum('status', ['on_track', 'at_risk', 'delayed', 'completed'])->default('on_track');
             $table->timestamps();
         });
     }

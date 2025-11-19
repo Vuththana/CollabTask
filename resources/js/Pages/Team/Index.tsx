@@ -1,8 +1,10 @@
 import NoTeam from "./Components/NoTeam";
 import MainLayout from "@/Layouts/MainLayout";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import TeamSidebar from "./Components/TeamSidebar";
 import TeamView from "./Components/TeamView";
+import ProjectView from "./Components/ProjectView";
+import { usePage } from "@inertiajs/react";
 
 interface Team {
   id: number;
@@ -35,27 +37,36 @@ interface ProjectUsers {
   roles: Role[]
 }
 
-export default function Index({projects, teams}: ProjectUsers) {
+export default function Index({projects, teams, ...props}: ProjectUsers) {
   const [selectedTeamId, setSelectedTeamId] = useState<number|null>(null);
   const [selectedProjectId, setSelectedProjectId] = useState<number|null>(null);
-  const [clickCounter, setClickCounter] = useState(0);
+  const [projectId, setProjectId] = useState<number | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const {flash} = usePage().props;
+
+  useEffect(() => {
+    if (flash.created_project) {
+      setSelectedProjectId(flash.created_project.id);
+      setSelectedTeamId(null);
+      setRefreshKey(prev => prev + 1);
+    }
+  }, [flash.created_project]);
 
   const handleSelectTeam = (teamId: number | null) => {
     setSelectedTeamId(teamId);
     setSelectedProjectId(null);
-    setClickCounter(prev => prev + 1);
+    setRefreshKey(prev => prev + 1);
   };
   
   const handleSelectProject = (projectId: number | null) => {
     setSelectedProjectId(projectId);
     setSelectedTeamId(null);
-    setClickCounter(prev => prev + 1);    
+    setRefreshKey(prev => prev + 1);    
   };
 
   const selectedTeam = useMemo(() => {
     return teams.find(t => t.id === selectedTeamId) || null
   }, [teams, selectedTeamId])
-
 
   return (
     
@@ -69,14 +80,17 @@ export default function Index({projects, teams}: ProjectUsers) {
               projects={projects}
               onSelectTeam={handleSelectTeam}
               onSelectProject={handleSelectProject}
+              selectedProjectId={selectedProjectId}  
+              setRefreshKey={setRefreshKey}
+              {...props}
               />
 
               
               <div className="flex-1">
                 {selectedTeamId ? (
-                  <TeamView teams={selectedTeam} refreshKey={clickCounter}/>
+                  <TeamView teams={selectedTeam} refreshKey={refreshKey}/>
                 ) : selectedProjectId ? (
-                  <div>Project</div>
+                  <ProjectView projectId={selectedProjectId}/>
                 ) : (
                   <div>Default</div>
                 )}

@@ -41,6 +41,9 @@ class HandleInertiaRequests extends Middleware
                     }
                 }
             ],
+            'flash' => [
+                'created_project' => fn() => $request->session()->get('created_project'),
+            ],
         ];
     }
 }

@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback } from "@/Components/ui/avatar";
+import { isEmpty } from "lodash";
 import { LucideCalendar, LucideChartLine, LucideCheckCircle2, LucideClock, LucideFileExclamationPoint, LucideUsers2 } from "lucide-react";
-import { useEffect } from "react";
 
 interface Project {
   id: number;
@@ -11,7 +11,13 @@ interface ProjectsCardProps {
   projects: Project[];
 }
 
+
+
 const ProjectsCard = ({projects}: ProjectsCardProps) => {
+
+    if (isEmpty(projects)) {
+        return <p>Looks like you don't have any projects going on, create one.</p>
+    }
 
   return (
       <div>

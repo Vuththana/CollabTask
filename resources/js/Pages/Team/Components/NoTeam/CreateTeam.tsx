@@ -10,7 +10,7 @@ import { useForm } from "@inertiajs/react";
 const CreateTeam = () => {
     const [createTeamOpen, setCreateTeamOpen] = useState(false);
 
-    const {data, setData, post, processing, errors} = useForm({
+    const {data, setData, post, processing} = useForm({
         name: '',
         description: '',
     })  
@@ -67,12 +67,15 @@ const CreateTeam = () => {
                     />
                 </div>
 
-                <p className="text-sm text-gray-500">
+                <div>
                     <p className="text-[11px]">Community guidelines</p>
-                    Be kind and respectful to your fellow community members. 
-                    Don't be rude or cruel. 
-                    Participate as yourself and don't post anything that violates Community Standards.
-                </p>
+                    <p className="text-sm text-gray-500">
+                        Be kind and respectful to your fellow community members. 
+                        Don't be rude or cruel. 
+                        Participate as yourself and don't post anything that violates Community Standards.
+                    </p>
+                </div>
+
                 <Button
                     type="submit"
                     disabled={processing}

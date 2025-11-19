@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/Components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/Components/ui/dialog';
 import Input from '../../../../Components/ui/input';
 import { useState } from 'react';
 import { Button } from '../../../../Components/ui/button';
@@ -39,7 +39,6 @@ const InviteTeam = () => {
     return (
         <div>
         <Dialog open={open} onOpenChange={setOpen}>
-        <form onSubmit={handleSubmit} id="invite-member-form">
         <DialogTrigger asChild>
             <button 
                 className='border rounded-l-lg px-2 py-1 hover:bg-gray-200/80'>
@@ -48,13 +47,14 @@ const InviteTeam = () => {
         </DialogTrigger>
 
         <DialogContent>
+        <form onSubmit={handleSubmit} id="invite-member-form">
             <DialogTitle>
                 Invite member
             </DialogTitle>
 
-            <DialogHeader>
+            <DialogDescription>
                 Start a new project and invite team members to collaborate.
-            </DialogHeader>
+            </DialogDescription>
             <div>
                 <div className='space-y-2'>
                     {/* Project Name */}
@@ -126,9 +126,8 @@ const InviteTeam = () => {
                 </DialogFooter>
                 </div>
             </div>
+            </form>
         </DialogContent>
-
-        </form>
     </Dialog>
         </div>
 

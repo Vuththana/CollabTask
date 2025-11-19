@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
         
         // Projects (Overview)
         Route::get('/projects', [OverviewController::class, 'index'])->name('projects.index');
-        Route::post('/projects/{id}', [ProjectController::class, 'store'])->name('project.store');
+        Route::post('/projects/{id}', [ProjectController::class, 'store'])->name('projects.store');
     });
 
     
@@ -39,6 +39,10 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/invite/{token}', [InviteLinkController::class, 'accept'])->name('teams.invite-link.accept');
 
+
+Route::fallback(function() {
+    return "Page not found";
+});
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
