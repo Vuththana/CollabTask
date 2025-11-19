@@ -1,12 +1,12 @@
 
 
-import CreateTeam from "@/Components/Team/NoTeam/CreateTeam";
-import JoinTeam from "@/Components/Team/NoTeam/JoinTeam";
 import { LucideUsers } from "lucide-react";
 import { useState } from "react";
+import CreateTeam from "./NoTeam/CreateTeam";
+import JoinTeam from "./NoTeam/JoinTeam";
 
 
-export default function NoTeam() {
+export default function Index() {
     const [createTeamOpen, setCreateTeamOpen] = useState(false);
     const [joinTeamOpen, setJoinTeamOpen] = useState(false);
     const [hasTeam, setHasTeam] = useState(false);

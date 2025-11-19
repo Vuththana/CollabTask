@@ -1,4 +1,4 @@
-import LogoTitle from "./LogoTitle";
+import LogoTitle from "./ui/LogoTitle";
 
 const Title = () => {
     return(

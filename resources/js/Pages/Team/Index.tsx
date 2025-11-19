@@ -1,21 +1,13 @@
-import TeamCard from "@/Components/Team/TeamCard";
-import NoTeam from "../NoTeam";
+import NoTeam from "./Components/NoTeam";
 import MainLayout from "@/Layouts/MainLayout";
-import TeamSidebar from "@/Components/Team/TeamSidebar";
-import { useState } from "react";
-import TeamView from "@/Components/Team/ui/TeamView";
+import { useMemo, useState } from "react";
+import TeamSidebar from "./Components/TeamSidebar";
+import TeamView from "./Components/TeamView";
 
 interface Team {
   id: number;
   name: string;
   owner_id: number;
-}
-
-interface Member {
-  id: number;
-  name: string;
-  email: string;
-  role: string;
 }
 
 interface Role {
@@ -43,7 +35,7 @@ interface ProjectUsers {
   roles: Role[]
 }
 
-export default function Index({projects, invited_by, teams}: ProjectUsers) {
+export default function Index({projects, teams}: ProjectUsers) {
   const [selectedTeamId, setSelectedTeamId] = useState<number|null>(null);
   const [selectedProjectId, setSelectedProjectId] = useState<number|null>(null);
   const [clickCounter, setClickCounter] = useState(0);
@@ -59,6 +51,10 @@ export default function Index({projects, invited_by, teams}: ProjectUsers) {
     setSelectedTeamId(null);
     setClickCounter(prev => prev + 1);    
   };
+
+  const selectedTeam = useMemo(() => {
+    return teams.find(t => t.id === selectedTeamId) || null
+  }, [teams, selectedTeamId])
 
 
   return (
@@ -78,7 +74,7 @@ export default function Index({projects, invited_by, teams}: ProjectUsers) {
               
               <div className="flex-1">
                 {selectedTeamId ? (
-                  <TeamView teams={teams} selectedTeamId={selectedTeamId} refreshKey={clickCounter}/>
+                  <TeamView teams={selectedTeam} refreshKey={clickCounter}/>
                 ) : selectedProjectId ? (
                   <div>Project</div>
                 ) : (
