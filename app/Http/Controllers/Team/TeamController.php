@@ -17,6 +17,7 @@ use function PHPUnit\Framework\isEmpty;
 
 class TeamController extends Controller
 {
+    // Route ('/')
     public function index() {
         // Team and project filter by auth user id
         $auth = Auth::user();
@@ -49,6 +50,17 @@ class TeamController extends Controller
         // return response()->json($invitedBy); 
     }
 
+    // Web Route('/overview')
+    public function overview($id) {
+        $user = Auth::user();
+        $team = $user->teams()
+            ->where('teams.id', $id)
+            ->get(['teams.id', 'teams.name']);
+        
+        return response()->json(["team_overview" => $team]);
+    }
+
+    // Web Route('/store')
     public function store(Request $request) {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
