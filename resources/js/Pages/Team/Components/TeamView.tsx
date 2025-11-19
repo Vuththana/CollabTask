@@ -4,12 +4,7 @@ import { isEmpty } from "lodash";
 import Overview from "./TeamView/Overview";
 import InviteTeam from "./TeamView/InviteTeam";
 import GenerateTeamLink from "./TeamView/GenerateTeamLink";
-
-interface Team {
-    id: number;
-    name: string;
-    owner_id: number;
-}
+import { Team } from "@/types";
 
 interface TeamViewProps {
     teams: Team | null

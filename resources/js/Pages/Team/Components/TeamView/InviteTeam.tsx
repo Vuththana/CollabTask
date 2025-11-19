@@ -5,17 +5,6 @@ import { Button } from '../../../../Components/ui/button';
 import { useForm } from '@inertiajs/react';
 import { LucideUserPlus2 } from 'lucide-react';
 
-
-interface Role {
-    name: string; 
-}
-
-interface OptionProps {
-    roles: Role[]
-    onClickInviteTeam: () => void
-}
-
-
 const InviteTeam = () => {
     const [open, setOpen] = useState(false)
 

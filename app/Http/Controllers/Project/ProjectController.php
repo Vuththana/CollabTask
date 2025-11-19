@@ -14,8 +14,8 @@ class ProjectController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:255',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date',
+            'start_date' => 'required|date|after_or_equal:today',
+            'end_date' => 'required|date|after_or_equal:today',
             'status' => 'nullable|in:on_track,at_risk,delayed,completed',
         ]);
 
@@ -25,8 +25,8 @@ class ProjectController extends Controller
             'name' => $validated['name'],
             'team_id' => $team->id,
             'description' => $validated['description'] ?? null,
-            'start_date' => $validated['start_date'] ?? null,
-            'end_date' => $validated['end_date'] ?? null,
+            'start_date' => $validated['start_date'],
+            'end_date' => $validated['end_date'],
             'status' => $validated['status'] ?? 'on_track',
         ]);
 

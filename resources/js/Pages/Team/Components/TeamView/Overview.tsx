@@ -1,18 +1,9 @@
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import ProjectsCard from "./Overview/ProjectsCard";
+import { Project, Team } from "@/types";
 
-interface Team {
-    id: number;
-    name: string;
-    owner_id: number;
-  }
 
-interface Project {
-    id: number;
-    name: string;
-    team_id: number
-}
 interface OverviewProps {
     teams: Team;
 }

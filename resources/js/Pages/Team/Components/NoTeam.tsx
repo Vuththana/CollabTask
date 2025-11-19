@@ -1,16 +1,11 @@
 
 
 import { LucideUsers } from "lucide-react";
-import { useState } from "react";
 import CreateTeam from "./NoTeam/CreateTeam";
 import JoinTeam from "./NoTeam/JoinTeam";
 
 
 export default function Index() {
-    const [createTeamOpen, setCreateTeamOpen] = useState(false);
-    const [joinTeamOpen, setJoinTeamOpen] = useState(false);
-    const [hasTeam, setHasTeam] = useState(false);
-    const [teamName, setTeamName] = useState("");
     return (
         <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
 

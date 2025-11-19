@@ -1,17 +1,12 @@
 import { Avatar, AvatarFallback } from "@/Components/ui/avatar";
+import { Project } from "@/types";
 import { isEmpty } from "lodash";
-import { LucideCalendar, LucideChartLine, LucideCheckCircle2, LucideClock, LucideFileExclamationPoint, LucideUsers2 } from "lucide-react";
+import { LucideCalendar, LucideCheckCircle2, LucideUsers2 } from "lucide-react";
 
-interface Project {
-  id: number;
-  name: string;
-}
 
 interface ProjectsCardProps {
   projects: Project[];
 }
-
-
 
 const ProjectsCard = ({projects}: ProjectsCardProps) => {
 

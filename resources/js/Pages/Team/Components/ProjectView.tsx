@@ -1,10 +1,21 @@
+import { Project } from "@/types";
+
+
 interface ProjectViewProps {
-    projectId: number;
+    project: Project[];
 }
 
-const ProjectView = ({projectId}: ProjectViewProps) => {
+const ProjectView = ({project}: ProjectViewProps) => {
+    
+    console.log(project)
     return (
-        <p>Project</p>
+        <div>
+        {project.map((p) => (
+            <div>{p.id}</div>
+        ))}
+        </div>
+ 
+
     )
 }
 

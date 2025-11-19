@@ -5,7 +5,8 @@ export interface User {
     email_verified_at?: string;
     permissions?: string[]
 }
-
+export * from './team';
+export * from './project';
 
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
@@ -13,4 +14,5 @@ export type PageProps<
     auth: {
         user: User;
     };
+
 };

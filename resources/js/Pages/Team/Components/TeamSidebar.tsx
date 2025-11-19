@@ -7,12 +7,7 @@ import DropdownTeam from "./TeamSidebar/DropdownTeam";
 import DropdownProject from "./TeamSidebar/DropdownProject";
 import CreateProject from "./TeamSidebar/CreateProject";
 import CreateTeam from "./TeamSidebar/CreateTeam";
-
-interface Team {
-    id: number;
-    name: string;
-    owner_id: number;
-}
+import { Team } from "@/types";
 
 interface Project {
     id: number;

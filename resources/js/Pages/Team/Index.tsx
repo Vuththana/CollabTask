@@ -5,42 +5,16 @@ import TeamSidebar from "./Components/TeamSidebar";
 import TeamView from "./Components/TeamView";
 import ProjectView from "./Components/ProjectView";
 import { usePage } from "@inertiajs/react";
-
-interface Team {
-  id: number;
-  name: string;
-  owner_id: number;
-}
-
-interface Role {
-  name: string; 
-}
-
-interface Invitations {
-  id: number
-  recipient_name: string
-  invited_by:string
-}
-
-interface Project {
-  id: number;
-  team_id: number;
-  name: string;
-  description?: string
-}
-
+import { Team, Project } from "@/types";
 
 interface ProjectUsers {
   projects: Project[]
-  invited_by: Invitations[]
   teams: Team[]
-  roles: Role[]
 }
 
 export default function Index({projects, teams, ...props}: ProjectUsers) {
   const [selectedTeamId, setSelectedTeamId] = useState<number|null>(null);
   const [selectedProjectId, setSelectedProjectId] = useState<number|null>(null);
-  const [projectId, setProjectId] = useState<number | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
   const {flash} = usePage().props;
 
@@ -68,6 +42,10 @@ export default function Index({projects, teams, ...props}: ProjectUsers) {
     return teams.find(t => t.id === selectedTeamId) || null
   }, [teams, selectedTeamId])
 
+  const selectedProject = useMemo(() => {
+    return projects.filter(p => p.id === selectedProjectId) || null
+  }, [projects, selectedProjectId])
+
   return (
     
           <>
@@ -90,7 +68,7 @@ export default function Index({projects, teams, ...props}: ProjectUsers) {
                 {selectedTeamId ? (
                   <TeamView teams={selectedTeam} refreshKey={refreshKey}/>
                 ) : selectedProjectId ? (
-                  <ProjectView projectId={selectedProjectId}/>
+                  <ProjectView project={selectedProject}/>
                 ) : (
                   <div>Default</div>
                 )}
