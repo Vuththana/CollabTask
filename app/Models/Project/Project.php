@@ -2,7 +2,6 @@
 
 namespace App\Models\Project;
 
-use App\Models\ProjectUser;
 use App\Models\User;
 use App\Models\User\Team;
 use Illuminate\Database\Eloquent\Model;

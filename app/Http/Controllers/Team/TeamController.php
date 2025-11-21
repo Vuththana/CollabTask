@@ -3,15 +3,12 @@
 namespace App\Http\Controllers\Team;
 
 use App\Http\Controllers\Controller;
-use App\Models\Project\ProjectInvitation;
+use App\Models\Project\Project;
+use App\Models\Project\ProjectUser;
 use App\Models\User\Team;
-use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -22,32 +19,18 @@ class TeamController extends Controller
         // Team and project filter by auth user id
         $auth = Auth::user();
 
-        $teams = $auth->teams()->get(['teams.id', 'teams.name']);
+        $teams = $auth->teams()->select(['teams.id', 'teams.name'])->get();
 
         $projects = $auth->projects()
-            ->get(['projects.id', 'projects.name', 'projects.team_id']);
-
-        // $acceptedInvitations = ProjectInvitation::with(['sender', 'recipient'])
-        //     ->whereIn('project_id', $projectId)
-        //     ->where('status', 'accepted')
-        //     ->get();
-
-        $roles = Role::all('name');
-
-        $permissions = Permission::all('name');
+            ->with(['members' => fn($query) => $query->select('users.name', 'project_users.project_id')])
+            ->select(['projects.id', 'projects.name', 'projects.status', 'projects.team_id', 'projects.description', 'projects.end_date'])
+            ->get();
 
         return Inertia::render('Team/Index', [
             'projects' => $projects,
-            'roles' => $roles,
-            'permissions' => $permissions,
-            'teams' => $teams
-            // 'invited_by' => $acceptedInvitations->map(fn($invite) => [
-            //     'project_id' => $invite->project_id,
-            //     'recipient_name' => $invite->recipient->name,
-            //     'invited_by' => $invite->sender->name ? $invite->sender->name :  "System",
-            // ])
+            'teams' => $teams,
             ]);
-        // return response()->json($invitedBy); 
+ 
     }
 
     // Web Route('/overview')

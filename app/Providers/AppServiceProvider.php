@@ -16,7 +16,6 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        $loader->alias('Debugbar', \Barryvdh\Debugbar\Facades\Debugbar::class);
     }
 
     /**
@@ -31,7 +30,6 @@ class AppServiceProvider extends ServiceProvider
                 if(Auth::check()) {
                     return Team::where('owner_id', Auth::id());
                 }
-
                 return [];
             }
         ]);

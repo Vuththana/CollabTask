@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->enum('status', ['on_track', 'at_risk', 'delayed', 'completed'])->default('on_track');
+            $table->enum('status', ['on track', 'at risk', 'delayed', 'completed'])->default('on track');
             $table->timestamps();
         });
     }

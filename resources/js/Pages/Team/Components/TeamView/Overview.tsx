@@ -1,43 +1,16 @@
 import axios from "axios";
-import { useEffect, useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import ProjectsCard from "./Overview/ProjectsCard";
 import { Project, Team } from "@/types";
 
 
 interface OverviewProps {
+    projects: Project[];
     teams: Team;
+    setSelectedProjectId: Dispatch<SetStateAction<number | null>>
 }
 
-const Overview = ({teams}: OverviewProps) => {
-    const [projects, setProjectsData] = useState<Project[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<unknown>(null);
-
-    const memoProjects = useMemo(() => {
-        return projects.filter(p => p.team_id === teams.id)
-    }, [projects, teams.id])
-
-
-    useEffect(() => {
-        const fetchProject = async() => {
-            try {
-                const res = await axios.get(`/teams/projects`)
-                setProjectsData(res.data.projects)
-            } catch(err: any) {
-                setError(err);
-            } finally {
-                setLoading(false)
-            }
-        }
-        fetchProject();
-    }, [])
-
-
-    if(loading) {
-        return (
-            <p>Fetching</p>
-        )
-    }
+const Overview = ({teams, projects, setSelectedProjectId}: OverviewProps) => {
 
     return (
         <div>
@@ -49,7 +22,7 @@ const Overview = ({teams}: OverviewProps) => {
                 </div>
 
                 <div>
-                    <ProjectsCard projects={memoProjects}/>
+                    <ProjectsCard projects={projects} setSelectedProject={setSelectedProjectId}/>
                 </div>
                 
                 {/* 

@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { Dispatch, lazy, SetStateAction, Suspense, useEffect, useMemo, useState } from "react";
 import { LucideSettings } from "lucide-react";
 import { isEmpty } from "lodash";
 import Overview from "./TeamView/Overview";
 import InviteTeam from "./TeamView/InviteTeam";
 import GenerateTeamLink from "./TeamView/GenerateTeamLink";
-import { Team } from "@/types";
+import { Project, Team } from "@/types";
 
 interface TeamViewProps {
+    projects: Project[]
     teams: Team | null
+    setSelectedProjectId: Dispatch<SetStateAction<number | null>>
     refreshKey: number
 }
 
@@ -25,14 +27,18 @@ const settingsTabs = [
 
 ]
 
-const TeamView = ({teams, refreshKey}: TeamViewProps) => {
+const TeamView = ({teams, projects, refreshKey, setSelectedProjectId}: TeamViewProps) => {
     const [mode, setMode] = useState<"main" | "settings"> ("main");
     const [activeTab, setActiveTab] = useState("overview");
 
     if (isEmpty(teams)) return <p>Team not found</p>
+
+    const projectOverview = useMemo(() => {
+        return projects.filter(p => p.team_id === teams.id)
+    }, [projects])
     
     const tabComponents: Record<string, React.ReactNode> = {
-        overview: <Overview teams={teams} />,
+        overview: <Overview teams={teams} projects={projectOverview} setSelectedProjectId={setSelectedProjectId}/>,
         discussions: <div>Discussion</div>,
         files: <div>Files</div>,
 

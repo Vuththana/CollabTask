@@ -8,14 +8,6 @@ import Textarea from '@/Components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/Components/ui/popover';
 import { Calendar } from '@/Components/ui/calendar';
 
-
-interface Project {
-    id: number;
-    team_id: number;
-    name: string;
-    description?: string
-  }
-  
 interface TeamProps {
     id: number;
     name: string;
@@ -107,7 +99,8 @@ const CreateProject = ({name, id, setRefreshKey, setProjectId, ...props}: TeamPr
                             onSelect={(selectedDate) => {
                                 setStartDate(selectedDate)
                                 if(selectedDate) {
-                                    const formatted = selectedDate.toISOString().slice(0, 19).replace('T', ' ')
+                                    const formatted = selectedDate.toLocaleDateString("en-CA") + " 00:00:00";
+                                    console.log(formatted)
                                     setData('start_date', formatted)
                                 } else
                                 {
@@ -139,7 +132,7 @@ const CreateProject = ({name, id, setRefreshKey, setProjectId, ...props}: TeamPr
                             onSelect={(selectedDate) => {
                                 setEndDate(selectedDate)
                                 if(selectedDate) {
-                                    const formatted = selectedDate.toISOString().slice(0, 19).replace('T', ' ')
+                                    const formatted = selectedDate.toLocaleDateString("en-CA") + " 00:00:00";
                                     setData('end_date', formatted)
                                 } else
                                 {

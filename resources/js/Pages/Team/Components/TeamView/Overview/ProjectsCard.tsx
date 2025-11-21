@@ -1,26 +1,36 @@
 import { Avatar, AvatarFallback } from "@/Components/ui/avatar";
 import { Project } from "@/types";
+import { fallbackNameFormat } from "@/utils/avatarFallback";
+import { formatDate } from "@/utils/formatDate";
 import { isEmpty } from "lodash";
 import { LucideCalendar, LucideCheckCircle2, LucideUsers2 } from "lucide-react";
-
+import React, { Dispatch, SetStateAction} from "react";
 
 interface ProjectsCardProps {
   projects: Project[];
+  setSelectedProject: Dispatch<SetStateAction<number | null>>
 }
 
-const ProjectsCard = ({projects}: ProjectsCardProps) => {
+const ProjectsCard = React.memo(({projects, setSelectedProject}: ProjectsCardProps) => {
 
     if (isEmpty(projects)) {
         return <p>Looks like you don't have any projects going on, create one.</p>
     }
-
+    const members = projects.flatMap(p => p.members);
+    const membersName = members.map((m) => (m.name))
+    console.log(membersName[0])
+    membersName.forEach(m => {
+        console.log(m.toLocaleString().charAt(0))
+    });
+    
   return (
       <div>
           <h1 className="font-semibold text-2xl mb-4">Active Projects</h1>
           <div className="grid lg:grid-cols-3 gap-4">
             { projects.map ((p) => (
+
               <div className="border rounded-xl shadow-sm bg-white hover:shadow-md
-              transition-all hover:cursor-pointer hover:-translate-y-1">
+              transition-all hover:cursor-pointer hover:-translate-y-1" key={p.id} onClick={()=> setSelectedProject(p.id)}>
                  <div className="p-6">
                      <div className="mb-4 flex items-start justify-between">
                          <div>
@@ -30,12 +40,12 @@ const ProjectsCard = ({projects}: ProjectsCardProps) => {
                              </h1>
                                  
                              {/* Description */}
-                             <p className="text-sm text-gray-500">Complete UI/UX overhual for iOS and Android</p>
+                             <p className="text-sm text-gray-500">{p.description}</p>
                          </div>
 
                          {/* Status */}
                          <div className="border bg-green-400 text-sm font-medium text-white px-3 py-1 rounded-xl">
-                             <p>on track</p>
+                             <p>{p.status}</p>
                          </div>
                      </div>
 
@@ -63,21 +73,24 @@ const ProjectsCard = ({projects}: ProjectsCardProps) => {
                                  
                                  {/* Deadline */}
                                  <div className="flex items-center gap-1">
-                                     <LucideCalendar className="" />
-                                     <p>Dec 15</p>
+                                     <LucideCalendar />
+                                     <p>{formatDate(p.end_date)}</p>
+                                     <p></p>
                                  </div>
                              </div>
 
                              {/* Users */}
                              <div className="flex items-center gap-1">
                                <LucideUsers2 className="w-4 h-4"/>
-                                 <div className="flex -space-x-2">
-                                     <Avatar className="h-7 w-7 border-2 border-card transition-transform hover:z-10 hover:scale-110">
-                                         <AvatarFallback>V</AvatarFallback>
-                                     </Avatar>
-                                     <Avatar className="h-7 w-7 border-2 border-card transition-transform hover:z-10 hover:scale-110">
-                                         <AvatarFallback className="text-xs">M</AvatarFallback>
-                                     </Avatar>
+                                 <div className="flex -space-x-3">
+                                    {members
+                                    .filter(m => m.project_id === p.id)
+                                    .map((m) =>
+                                    <Avatar className="h-7 w-7 border-2 border-card transition-transform hover:z-10 hover:scale-110">
+                                        <AvatarFallback>{fallbackNameFormat(m.name)}</AvatarFallback>
+                                    </Avatar>
+                                    )}
+      
                                  </div>
 
                              </div>
@@ -93,5 +106,5 @@ const ProjectsCard = ({projects}: ProjectsCardProps) => {
       </div>
   )
 }
-
+)
 export default ProjectsCard;

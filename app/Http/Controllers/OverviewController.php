@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class OverviewController extends Controller
@@ -11,7 +10,8 @@ class OverviewController extends Controller
         $user = Auth::user();
 
         $projects = $user->projects()
-            ->get(['projects.id', 'projects.team_id', 'projects.name']);
+            ->select()
+            ->get();
 
         return response()->json(['projects' => $projects]);
     }

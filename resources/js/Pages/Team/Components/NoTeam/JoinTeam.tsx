@@ -20,10 +20,10 @@ export default function JoinTeam() {
                             <LucideUserPlus className="text-card-foreground"/>
                         </div>
                         <div>
-                            <p className="text-md font-medium">Create Team</p>
+                            <p className="text-md font-medium">Join Team</p>
                         </div>
                         <div className="mt-2">
-                            <p className="text-sm text-muted-foreground">Start your own team and invite members</p>
+                            <p className="text-sm text-muted-foreground">Join team by code or team email</p>
                         </div>
                     </div>
 

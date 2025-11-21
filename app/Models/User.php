@@ -6,12 +6,11 @@ namespace App\Models;
 
 use App\Models\Project\Project;
 use App\Models\Project\ProjectInvitation;
-use App\Models\User\InviteLink;
+use App\Models\Project\ProjectUser;
 use App\Models\User\Team;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -71,7 +70,7 @@ class User extends Authenticatable
 
     public function projectUsers()
     {
-        return $this->hasMany(ProjectUser::class, 'project_users');
+        return $this->hasMany(ProjectUser::class);
     }
 
     public function invitationsSent()

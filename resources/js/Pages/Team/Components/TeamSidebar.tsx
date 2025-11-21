@@ -1,20 +1,14 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Button } from "../../../Components/ui/button";
-import {LucideFilter, LucideUsers2 } from "lucide-react";
+import { Dispatch, SetStateAction, Suspense, useEffect, useMemo, useState } from "react";
+import { LucideUsers2 } from "lucide-react";
 import { Avatar, AvatarFallback } from "../../../Components/ui/avatar";
 
 import DropdownTeam from "./TeamSidebar/DropdownTeam";
 import DropdownProject from "./TeamSidebar/DropdownProject";
 import CreateProject from "./TeamSidebar/CreateProject";
 import CreateTeam from "./TeamSidebar/CreateTeam";
-import { Team } from "@/types";
-
-interface Project {
-    id: number;
-    team_id: number;
-    name: string;
-    description?: string
-}
+import { Team, Project } from "@/types";
+import FilterTeam from "./TeamSidebar/FilterTeam";
+import SearchFilter from "./TeamSidebar/SearchFilter";
 
 interface TeamProps {
     teams: Team[];
@@ -29,28 +23,35 @@ const TeamSidebar = ({teams, projects, onSelectTeam, onSelectProject, selectedPr
     
     const [teamId, setActiveTeamId] = useState<number | null> (null);
     const [projectId, setActiveProjectId] = useState<number | null> (null);
+    const [filter, setFilter] = useState<boolean>(false);
+    const [search, setSearch] = useState<string>("");
 
     useEffect(() => {
         setActiveProjectId(selectedProjectId);
         if (selectedProjectId) setActiveTeamId(null);
       }, [selectedProjectId]);
-      
+
     return (
         <div className ="hidden md:flex w-[420px] flex-col">
             <div className="h-full px-5 py-6 overflow-y-auto border bg-white space-y-2">
-                <div className="flex justify-between">
-                    <h2 className="text-[20px] font-medium">Teams</h2>
-                    
-                    <div className="space-x-2">
-                        <Button className="bg-purple-500 hover:bg-purple-500/80">
-                            <LucideFilter />
-                        </Button>
-
-                        <CreateTeam />
+                    {filter 
+                    ? 
+                    ( <SearchFilter setClickFilter={setFilter} setSearchFilter={setSearch}/>) 
+                    : 
+                    (   
+                    <div className="flex justify-between">
+                        <h2 className="text-[20px] font-medium">Teams</h2>                 
+                        <div className="flex space-x-2">
+                            <FilterTeam setClickFilter={setFilter}/>
+                            <CreateTeam />
+                        </div>
                     </div>
+                    )}
 
-                </div>
-                {teams.map((team) => (
+
+                {teams
+                .filter(t => t.name.toLowerCase().includes(search.toLowerCase()) || projects.some(p => p.team_id === t.id && p.name.toLowerCase().includes(search.toLowerCase())))
+                .map((team) => (
                 <div className="space-y-3" key={team.id} >
                     <div className="border-b pb-4" >
                         <div 
@@ -76,9 +77,11 @@ const TeamSidebar = ({teams, projects, onSelectTeam, onSelectProject, selectedPr
 
 
                         {projects
-                                .filter(project => team.id === project.team_id)
+                                .filter(project => project.team_id === team.id && 
+                                    project.name.toLowerCase().includes(search.toLowerCase()))
                                 .map((project) => (
-                            <div   key={project.id}
+                            <div  
+                            key={project.id}
                             onClick={() => {setActiveProjectId(project.id); setActiveTeamId(null); onSelectProject(project.id);}}
                             >
 
@@ -101,7 +104,7 @@ const TeamSidebar = ({teams, projects, onSelectTeam, onSelectProject, selectedPr
                                 <CreateProject 
                                 name={team.name}
                                 id={team.id}
-                                setProjectId={onSelectProject}
+                                setProjectId={setActiveProjectId}
                                 setRefreshKey={setRefreshKey}
                                 {...props}/>
                             </div>

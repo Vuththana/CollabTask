@@ -16,7 +16,7 @@ class ProjectController extends Controller
             'description' => 'nullable|string|max:255',
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after_or_equal:today',
-            'status' => 'nullable|in:on_track,at_risk,delayed,completed',
+            'status' => 'nullable|in:on track,at risk,delayed,completed',
         ]);
 
         $team = Auth::user()->teams()->findOrFail($id);
@@ -27,7 +27,7 @@ class ProjectController extends Controller
             'description' => $validated['description'] ?? null,
             'start_date' => $validated['start_date'],
             'end_date' => $validated['end_date'],
-            'status' => $validated['status'] ?? 'on_track',
+            'status' => $validated['status'] ?? 'on track',
         ]);
 
         $project->members()->attach(Auth::id(), ['role' => 'project-owner']);
